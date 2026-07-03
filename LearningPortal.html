@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSync AI - Smarter Video Learning</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-base: #060913;
+            --bg-surface: rgba(13, 20, 38, 0.6);
+            --bg-surface-hover: rgba(20, 32, 61, 0.8);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(139, 92, 246, 0.4);
+            
+            --primary: #8b5cf6;
+            --primary-glow: rgba(139, 92, 246, 0.25);
+            --secondary: #06b6d4;
+            --secondary-glow: rgba(6, 182, 212, 0.25);
+            --accent: #f43f5e;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --glass-blur: blur(16px);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-surface: rgba(255, 255, 255, 0.8);
+            --bg-surface-hover: rgba(241, 245, 249, 0.9);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(139, 92, 246, 0.5);
+            
+            --primary: #7c3aed;
+            --primary-glow: rgba(124, 58, 237, 0.2);
+            --secondary: #0891b2;
+            --secondary-glow: rgba(8, 145, 178, 0.2);
+            --accent: #e11d48;
+            
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-inverse: #f8fafc;
+        }
+
+        [data-theme="light"] body {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(8, 145, 178, 0.1) 0%, transparent 45%);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        [data-theme="light"] .url-input {
+            background: rgba(241, 245, 249, 0.8);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .url-input:focus {
+            background: rgba(241, 245, 249, 1);
+        }
+
+        [data-theme="light"] #player-placeholder {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        }
+
+        [data-theme="light"] .tab-headers {
+            background: rgba(241, 245, 249, 0.6);
+        }
+
+        [data-theme="light"] .tab-btn:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        [data-theme="light"] .tab-btn.active {
+            background: rgba(124, 58, 237, 0.08);
+        }
+
+        [data-theme="light"] .note-card {
+            background: rgba(241, 245, 249, 0.6);
+        }
+
+        [data-theme="light"] .note-card:hover {
+            background: rgba(241, 245, 249, 0.9);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="light"] .note-card.active {
+            background: rgba(124, 58, 237, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+        }
+
+        [data-theme="light"] .my-notes-input-area {
+            background: rgba(241, 245, 249, 0.6);
+        }
+
+        [data-theme="light"] .my-notes-textarea {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="light"] .my-note-item {
+            background: rgba(241, 245, 249, 0.5);
+        }
+
+        [data-theme="light"] .my-note-item:hover {
+            background: rgba(241, 245, 249, 0.8);
+        }
+
+        [data-theme="light"] .modal-content {
+            background: #ffffff;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        [data-theme="light"] .form-input {
+            background: rgba(241, 245, 249, 0.8);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .workspace-footer {
+            background: rgba(241, 245, 249, 0.4);
+        }
+
+        [data-theme="light"] .export-menu {
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="light"] .export-option:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        [data-theme="light"] .code-toolbar {
+            background: rgba(241, 245, 249, 0.6);
+        }
+
+        [data-theme="light"] .language-dropdown {
+            background: rgba(241, 245, 249, 0.9);
+        }
+
+        [data-theme="light"] .language-dropdown option {
+            background: #ffffff;
+        }
+
+        [data-theme="light"] .code-editor-wrapper {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="light"] .line-numbers {
+            background: #f8fafc;
+            color: #94a3b8;
+            border-right-color: #e2e8f0;
+        }
+
+        [data-theme="light"] .code-editor {
+            color: #1e293b;
+        }
+
+        [data-theme="light"] .output-console {
+            background: #ffffff;
+        }
+
+        [data-theme="light"] .output-header {
+            background: #f8fafc;
+            border-bottom-color: #e2e8f0;
+        }
+
+        [data-theme="light"] ::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.5);
+        }
+
+        [data-theme="light"] ::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.3);
+        }
+
+        [data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        [data-theme="light"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .theme-toggle .icon-sun,
+        .theme-toggle .icon-moon {
+            display: none;
+        }
+
+        :root .theme-toggle .icon-moon {
+            display: inline;
+        }
+
+        [data-theme="light"] .theme-toggle .icon-sun {
+            display: inline;
+        }
+
+        [data-theme="light"] .theme-toggle .icon-moon {
+            display: none;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            background: rgba(6, 9, 19, 0.8);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            color: #ffffff;
+            padding: 0.4rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .url-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 2rem;
+        }
+
+        .url-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .url-input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.7rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .url-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #ffffff;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* Main Workspace */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            padding: 2rem;
+            flex: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+            .url-bar-container {
+                margin: 0 1rem;
+            }
+        }
+
+        /* Left Column: Player and Info */
+        .player-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .player-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="light"] .player-wrapper {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .player-wrapper iframe, .player-wrapper #player-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #player-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d1222, #070914);
+            color: var(--text-muted);
+            gap: 1.25rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #player-placeholder i {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .video-meta {
+            background: var(--bg-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            display: none; /* Shown dynamically */
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .video-channel {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Right Column: Workspaces/Tabs */
+        .notes-column {
+            background: var(--bg-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: calc(100vh - 120px);
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="light"] .notes-column {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-headers {
+            display: flex;
+            background: rgba(15, 23, 42, 0.4);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.5rem 0.5rem 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .tab-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Timeline and Cards */
+        .notes-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .note-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .note-card:hover {
+            background: var(--bg-surface-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .note-card.active {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        }
+
+        .note-card.active::before {
+            background: var(--primary);
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .timestamp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .note-card.active .timestamp-badge {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--primary);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .note-title {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .note-summary {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .note-bullets {
+            list-style: none;
+            padding-left: 0.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .note-bullets li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            position: relative;
+            padding-left: 1rem;
+            line-height: 1.4;
+        }
+
+        .note-bullets li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* My Notes Layout */
+        .my-notes-input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 1rem;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .my-notes-textarea {
+            width: 100%;
+            height: 80px;
+            background: rgba(6, 9, 19, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .my-notes-textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px var(--secondary-glow);
+        }
+
+        .my-notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .my-note-item {
+            background: rgba(30, 41, 59, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .my-note-item:hover {
+            border-color: var(--secondary);
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .my-note-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .my-note-text {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.2rem;
+        }
+
+        .btn-delete:hover {
+            color: var(--accent);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(6, 9, 19, 0.9);
+            z-index: 20;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        [data-theme="light"] .loading-overlay {
+            background: rgba(248, 250, 252, 0.92);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.05);
+            border-top-color: var(--primary);
+            border-bottom-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        [data-theme="light"] .spinner {
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .loading-step {
+            transition: var(--transition);
+        }
+
+        .loading-step.active {
+            color: var(--secondary);
+            font-weight: 400;
+        }
+
+        .loading-step.complete {
+            color: var(--primary);
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        /* Modal Settings */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        [data-theme="light"] .modal {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background: #0d1326;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .form-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            gap: 1rem;
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        /* Footer Utilities */
+        .workspace-footer {
+            padding: 1.25rem 1.5rem;
+            background: rgba(15, 23, 42, 0.3);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Export Dropdown */
+        .export-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .export-menu {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .export-menu {
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .export-menu.show {
+            display: block;
+        }
+
+        .export-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+        }
+
+        .export-option:hover {
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        .export-option i {
+            color: var(--text-muted);
+            width: 16px;
+            font-size: 0.85rem;
+        }
+
+        .export-option:first-child {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Code Playground Styles */
+        .code-playground-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: 100%;
+        }
+
+        .code-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .language-selector label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .language-dropdown {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .language-dropdown:focus {
+            border-color: var(--primary);
+        }
+
+        .language-dropdown option {
+            background: #1e293b;
+            color: var(--text-main);
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .code-editor-wrapper {
+            display: flex;
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            flex: 1;
+            min-height: 200px;
+        }
+
+        .line-numbers {
+            background: #161b22;
+            color: #484f58;
+            padding: 1rem 0.75rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid #30363d;
+            min-width: 40px;
+        }
+
+        .code-editor {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #e6edf3;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            tab-size: 2;
+        }
+
+        .code-editor::placeholder {
+            color: #484f58;
+        }
+
+        .output-console {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 150px;
+            flex-shrink: 0;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .output-header i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-clear-output {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .btn-clear-output:hover {
+            color: var(--text-main);
+        }
+
+        .output-content {
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .output-placeholder {
+            color: #484f58;
+        }
+
+        .output-success {
+            color: #3fb950;
+        }
+
+        .output-error {
+            color: #f85149;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnSync AI</span>
+        </a>
+        
+        <div class="url-bar-container">
+            <div class="url-input-wrapper">
+                <i class="fa-brands fa-youtube"></i>
+                <input type="text" id="youtube-url" class="url-input" placeholder="Paste YouTube video URL here...">
+            </div>
+            <button id="btn-analyze" class="btn btn-primary">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Analyze</span>
+            </button>
+        </div>
+
+        <div class="header-actions">
+            <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+            </button>
+            <button id="btn-settings" class="icon-btn" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="workspace">
+        <!-- Left: Player Column -->
+        <div class="player-column">
+            <div class="player-wrapper">
+                <div id="player-placeholder">
+                    <i class="fa-solid fa-play"></i>
+                    <div>
+                        <h2>Ready to learn?</h2>
+                        <p style="margin-top: 0.5rem;">Paste a YouTube video URL above to load the video and generate AI study notes.</p>
+                    </div>
+                </div>
+                <!-- YouTube Iframe placeholder -->
+                <div id="yt-player"></div>
+            </div>
+
+            <div id="video-info" class="video-meta">
+                <h1 id="video-title" class="video-title">Video Title</h1>
+                <div class="video-channel">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="video-channel-name">Channel Name</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Notes & Interaction -->
+        <div class="notes-column">
+            <div class="tab-headers">
+                <button class="tab-btn active" data-tab="ai-notes">
+                    <i class="fa-solid fa-brain"></i>
+                    AI Auto-Notes
+                </button>
+                <button class="tab-btn" data-tab="my-notes">
+                    <i class="fa-solid fa-pen-fancy"></i>
+                    My Notes
+                </button>
+                <button class="tab-btn" id="btn-code-playground" data-action="open-code-modal">
+                    <i class="fa-solid fa-code"></i>
+                    Code Playground
+                </button>
+            </div>
+
+            <!-- AI Auto Notes Tab -->
+            <div id="ai-notes" class="tab-content active">
+                <!-- Loading State inside notes -->
+                <div id="loading-notes" class="loading-overlay">
+                    <div class="spinner"></div>
+                    <h3 id="loading-header">Processing Video</h3>
+                    <div class="loading-steps">
+                        <div id="step-1" class="loading-step">1. Fetching transcripts from YouTube...</div>
+                        <div id="step-2" class="loading-step">2. Analyzing core topics with Gemini AI...</div>
+                        <div id="step-3" class="loading-step">3. Generating timestamped study notes...</div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="ai-notes-empty" class="empty-state">
+                    <i class="fa-solid fa-notes-medical"></i>
+                    <h3>No notes generated yet</h3>
+                    <p>Once you paste a video URL and click Analyze, AI-generated summary notes will appear here.</p>
+                </div>
+
+                <!-- Timeline of Notes -->
+                <div id="ai-notes-list" class="notes-timeline" style="display: none;">
+                    <!-- Note Cards go here -->
+                </div>
+            </div>
+
+            <!-- My Notes Tab -->
+            <div id="my-notes" class="tab-content">
+                <div class="my-notes-input-area">
+                    <textarea id="my-note-input" class="my-notes-textarea" placeholder="Type a custom note... Press Enter to save and tag it with the current video timestamp."></textarea>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                            <i class="fa-solid fa-clock"></i> Tagged at video time
+                        </span>
+                        <button id="btn-add-note" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            <i class="fa-solid fa-plus"></i> Add Note
+                        </button>
+                    </div>
+                </div>
+
+                <div id="my-notes-empty" class="empty-state">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <h3>Your custom scratchpad is empty</h3>
+                    <p>Add custom notes while watching! They will be tagged with the current video time automatically.</p>
+                </div>
+
+                <div id="my-notes-list" class="my-notes-list" style="display: none;">
+                    <!-- User Notes go here -->
+                </div>
+            </div>
+
+            <!-- Footer Toolbar -->
+            <div class="workspace-footer">
+                <div class="export-dropdown" id="export-dropdown">
+                    <button id="btn-export" class="btn btn-secondary" disabled>
+                        <i class="fa-solid fa-download"></i>
+                        Export Workspace
+                        <i class="fa-solid fa-chevron-down" style="margin-left: 6px; font-size: 0.7rem;"></i>
+                    </button>
+                    <div class="export-menu" id="export-menu">
+                        <button class="export-option" data-format="markdown">
+                            <i class="fa-solid fa-file-lines"></i> Markdown (.md)
+                        </button>
+                        <button class="export-option" data-format="text">
+                            <i class="fa-solid fa-file-alt"></i> Plain Text (.txt)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Playground Modal -->
+    <div id="code-modal" class="modal">
+        <div class="modal-content" style="max-width: 900px; height: 85vh; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-code"></i> Code Playground</h3>
+                <button id="code-modal-close" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <!-- Language Selector & Actions -->
+            <div class="code-toolbar" style="margin-bottom: 1rem;">
+                <div class="language-selector">
+                    <label for="code-language">Language:</label>
+                    <select id="code-language" class="language-dropdown">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="golang">Go</option>
+                    </select>
+                </div>
+                <div class="code-actions">
+                    <button id="btn-load-example" class="btn btn-secondary btn-sm">
+                        <i class="fa-solid fa-file-code"></i> Load Example
+                    </button>
+                    <button id="btn-run-code" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-play"></i> Run Code
+                    </button>
+                    <button id="btn-clear-code" class="btn btn-secondary btn-sm">
+                        <i class="fa-solid fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Code Editor -->
+            <div class="code-editor-wrapper" style="flex: 1; min-height: 0;">
+                <div class="line-numbers" id="line-numbers">1</div>
+                <textarea id="code-editor" class="code-editor" spellcheck="false" placeholder="Write your code here..."></textarea>
+            </div>
+
+            <!-- Output Console -->
+            <div class="output-console" style="margin-top: 1rem; height: 150px; flex-shrink: 0;">
+                <div class="output-header">
+                    <i class="fa-solid fa-terminal"></i> Output
+                    <button id="btn-clear-output" class="btn-clear-output">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="output-content" class="output-content">
+                    <span class="output-placeholder">Run your code to see output here...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-sliders"></i> Settings</h3>
+                <button id="modal-close" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="form-group">
+                <label for="settings-api-key" class="form-label">Gemini API Key (Optional)</label>
+                <input type="password" id="settings-api-key" class="form-input" placeholder="Pasted key overrides server .env key...">
+                <span class="form-help">
+                    Your key is saved locally in your browser's local storage and is sent securely in request headers. Leave blank to use the backend's configured environment key.
+                </span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button id="btn-save-settings" class="btn btn-primary" style="padding: 0.6rem 1.2rem;">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- YouTube Iframe API -->
+    <script>
+        // Load YouTube Iframe API script dynamically
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player = null;
+        let aiNotesData = [];
+        let myNotesData = [];
+        let currentVideoId = "";
+        let timerInterval = null;
+
+        // Callback function when YouTube API is ready
+        function onYouTubeIframeAPIReady() {
+            // Player will be instantiated when a video is loaded
+        }
+
+        // Initialize Youtube Player
+        function initPlayer(videoId) {
+            // If player already exists, load the new video ID
+            if (player) {
+                player.loadVideoById(videoId);
+                document.getElementById('player-placeholder').style.display = 'none';
+                return;
+            }
+
+            player = new YT.Player('yt-player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'modestbranding': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+            document.getElementById('player-placeholder').style.display = 'none';
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                startMonitoringPlayback();
+            } else {
+                stopMonitoringPlayback();
+            }
+        }
+
+        function startMonitoringPlayback() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (player && typeof player.getCurrentTime === 'function') {
+                    const currentTime = player.getCurrentTime();
+                    highlightActiveNote(currentTime);
+                }
+            }, 250);
+        }
+
+        function stopMonitoringPlayback() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function formatSeconds(sec) {
+            const h = Math.floor(sec / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            const s = Math.floor(sec % 60);
+            if (h > 0) {
+                return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // Highlight AI Note based on current video play time
+        function highlightActiveNote(time) {
+            if (!aiNotesData || aiNotesData.length === 0) return;
+            
+            // Find active note card
+            let activeIndex = -1;
+            for (let i = 0; i < aiNotesData.length; i++) {
+                if (time >= aiNotesData[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            // Remove active classes
+            const cards = document.querySelectorAll('.note-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            if (activeIndex !== -1) {
+                const activeCard = document.getElementById(`ai-note-${activeIndex}`);
+                if (activeCard) {
+                    activeCard.classList.add('active');
+                    // Auto scroll active card into view within the tab-content
+                    const container = document.getElementById('ai-notes');
+                    const cardTop = activeCard.offsetTop;
+                    const cardHeight = activeCard.offsetHeight;
+                    const containerHeight = container.offsetHeight;
+                    const containerScrollTop = container.scrollTop;
+
+                    // Scroll if card is not fully visible in viewport
+                    if (cardTop < containerScrollTop || (cardTop + cardHeight) > (containerScrollTop + containerHeight)) {
+                        container.scrollTo({
+                            top: cardTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById("theme-toggle");
+            const htmlElement = document.documentElement;
+            
+            // Load saved theme or default to dark
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            if (savedTheme === "light") {
+                htmlElement.setAttribute("data-theme", "light");
+            }
+            
+            themeToggle.addEventListener("click", () => {
+                const currentTheme = htmlElement.getAttribute("data-theme");
+                if (currentTheme === "light") {
+                    htmlElement.removeAttribute("data-theme");
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    htmlElement.setAttribute("data-theme", "light");
+                    localStorage.setItem("theme", "light");
+                }
+            });
+
+            // Retrieve custom API key from LocalStorage
+            const storedKey = localStorage.getItem("gemini_api_key");
+            if (storedKey) {
+                document.getElementById("settings-api-key").value = storedKey;
+            }
+
+            // Setup Tab Switching
+            const tabs = document.querySelectorAll(".tab-btn");
+            tabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+
+                    const contentId = tab.getAttribute("data-tab");
+                    const contents = document.querySelectorAll(".tab-content");
+                    contents.forEach(c => c.classList.remove("active"));
+                    document.getElementById(contentId).classList.add("active");
+                });
+            });
+
+            // Settings Modal logic
+            const settingsBtn = document.getElementById("btn-settings");
+            const modal = document.getElementById("settings-modal");
+            const modalClose = document.getElementById("modal-close");
+            const saveSettingsBtn = document.getElementById("btn-save-settings");
+
+            settingsBtn.addEventListener("click", () => modal.style.display = "flex");
+            modalClose.addEventListener("click", () => modal.style.display = "none");
+            window.addEventListener("click", (e) => {
+                if (e.target === modal) modal.style.display = "none";
+            });
+
+            saveSettingsBtn.addEventListener("click", () => {
+                const key = document.getElementById("settings-api-key").value.trim();
+                localStorage.setItem("gemini_api_key", key);
+                modal.style.display = "none";
+            });
+
+            // Loading Steps Simulation
+            function showLoading(show) {
+                const loadingOverlay = document.getElementById("loading-notes");
+                if (show) {
+                    loadingOverlay.style.display = "flex";
+                    updateLoadingStep(1);
+                } else {
+                    loadingOverlay.style.display = "none";
+                }
+            }
+
+            function updateLoadingStep(stepNum) {
+                for (let i = 1; i <= 3; i++) {
+                    const el = document.getElementById(`step-${i}`);
+                    if (i < stepNum) {
+                        el.className = "loading-step complete";
+                    } else if (i === stepNum) {
+                        el.className = "loading-step active";
+                    } else {
+                        el.className = "loading-step";
+                    }
+                }
+            }
+
+            // Analyze Video URL
+            const btnAnalyze = document.getElementById("btn-analyze");
+            btnAnalyze.addEventListener("click", async () => {
+                const url = document.getElementById("youtube-url").value.trim();
+                if (!url) {
+                    alert("Please enter a valid YouTube URL.");
+                    return;
+                }
+
+                // Reset timeline and load status
+                showLoading(true);
+                document.getElementById("ai-notes-empty").style.display = "none";
+                document.getElementById("ai-notes-list").style.display = "none";
+                document.getElementById("btn-export").disabled = true;
+
+                const apiKey = localStorage.getItem("gemini_api_key") || "";
+
+                try {
+                    // Update step simulator: Fetching transcript
+                    updateLoadingStep(1);
+                    
+                    // Call Backend API
+                    setTimeout(() => updateLoadingStep(2), 2000); // UI visual update
+                    setTimeout(() => updateLoadingStep(3), 5000); // UI visual update
+
+                    const response = await fetch("http://127.0.0.1:5000/api/analyze", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ url, apiKey })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error || "Something went wrong.");
+                    }
+
+                    // Success
+                    aiNotesData = data.notes;
+                    currentVideoId = data.videoId;
+
+                    // Initialize Player
+                    initPlayer(currentVideoId);
+
+                    // Show Video Meta info (Title & Channel)
+                    fetchVideoMeta(currentVideoId);
+
+                    // Render Notes
+                    renderAINotes(aiNotesData);
+
+                    // Load User manual notes from localStorage if they exist
+                    loadUserNotes(currentVideoId);
+
+                    showLoading(false);
+                    document.getElementById("ai-notes-list").style.display = "flex";
+                    document.getElementById("btn-export").disabled = false;
+
+                } catch (error) {
+                    showLoading(false);
+                    document.getElementById("ai-notes-empty").style.display = "flex";
+                    alert(`Error: ${error.message}`);
+                }
+            });
+
+            // Fetch metadata details using YouTube oEmbed (so we get title and author)
+            async function fetchVideoMeta(videoId) {
+                try {
+                    const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+                    const metadata = await response.json();
+                    if (metadata && metadata.title) {
+                        document.getElementById("video-info").style.display = "block";
+                        document.getElementById("video-title").innerText = metadata.title;
+                        document.getElementById("video-channel-name").innerText = metadata.author_name;
+                    }
+                } catch (e) {
+                    console.error("Failed to fetch video meta: ", e);
+                }
+            }
+
+            // Render AI Notes to DOM
+            function renderAINotes(notes) {
+                const listContainer = document.getElementById("ai-notes-list");
+                listContainer.innerHTML = "";
+
+                notes.forEach((note, index) => {
+                    const card = document.createElement("div");
+                    card.className = "note-card";
+                    card.id = `ai-note-${index}`;
+                    
+                    // Timestamps formatting
+                    const timeString = formatSeconds(note.time);
+
+                    // Bullets list formatting
+                    let bulletsHTML = "";
+                    if (note.bullets && note.bullets.length > 0) {
+                        bulletsHTML = `<ul class="note-bullets">` + 
+                            note.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("") + 
+                            `</ul>`;
+                    }
+
+                    card.innerHTML = `
+                        <div class="note-header">
+                            <span class="note-title">${escapeHtml(note.title)}</span>
+                            <span class="timestamp-badge">
+                                <i class="fa-solid fa-clock"></i> ${timeString}
+                            </span>
+                        </div>
+                        <div class="note-summary">${escapeHtml(note.summary)}</div>
+                        ${bulletsHTML}
+                    `;
+
+                    // Click handler to seek video
+                    card.addEventListener("click", () => {
+                        if (player && typeof player.seekTo === 'function') {
+                            player.seekTo(note.time, true);
+                            player.playVideo();
+                        }
+                    });
+
+                    listContainer.appendChild(card);
+                });
+            }
+
+            // User Manual Notes Logic
+            const btnAddNote = document.getElementById("btn-add-note");
+            const myNoteInput = document.getElementById("my-note-input");
+
+            btnAddNote.addEventListener("click", addUserNote);
+            myNoteInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    addUserNote();
+                }
+            });
+
+            function addUserNote() {
+                const text = myNoteInput.value.trim();
+                if (!text) return;
+                if (!currentVideoId) {
+                    alert("Please load a video first before taking custom notes.");
+                    return;
+                }
+
+                let timestamp = 0;
+                if (player && typeof player.getCurrentTime === 'function') {
+                    timestamp = Math.floor(player.getCurrentTime());
+                }
+
+                const newNote = {
+                    id: Date.now(),
+                    time: timestamp,
+                    text: text
+                };
+
+                myNotesData.push(newNote);
+                // Sort by timestamp
+                myNotesData.sort((a, b) => a.time - b.time);
+
+                saveUserNotesToStorage(currentVideoId, myNotesData);
+                renderUserNotes();
+                
+                myNoteInput.value = "";
+            }
+
+            function renderUserNotes() {
+                const list = document.getElementById("my-notes-list");
+                const emptyState = document.getElementById("my-notes-empty");
+
+                if (myNotesData.length === 0) {
+                    list.style.display = "none";
+                    emptyState.style.display = "flex";
+                    return;
+                }
+
+                list.style.display = "flex";
+                emptyState.style.display = "none";
+                list.innerHTML = "";
+
+                myNotesData.forEach(note => {
+                    const item = document.createElement("div");
+                    item.className = "my-note-item";
+                    
+                    item.innerHTML = `
+                        <div class="my-note-header">
+                            <span class="timestamp-badge" style="background: rgba(139,92,246,0.15); color: var(--primary); border-color: rgba(139,92,246,0.25)">
+                                <i class="fa-solid fa-clock"></i> ${formatSeconds(note.time)}
+                            </span>
+                            <button class="btn-delete" data-id="${note.id}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="my-note-text">${escapeHtml(note.text)}</div>
+                    `;
+
+                    // Seek when clicking body
+                    item.addEventListener("click", (e) => {
+                        // Prevent seeking when clicking delete button
+                        if (e.target.closest(".btn-delete")) return;
+                        
+                        if (player && typeof player.seekTo === 'function') {
+                            player.seekTo(note.time, true);
+                            player.playVideo();
+                        }
+                    });
+
+                    // Delete handler
+                    item.querySelector(".btn-delete").addEventListener("click", () => {
+                        myNotesData = myNotesData.filter(n => n.id !== note.id);
+                        saveUserNotesToStorage(currentVideoId, myNotesData);
+                        renderUserNotes();
+                    });
+
+                    list.appendChild(item);
+                });
+            }
+
+            function loadUserNotes(videoId) {
+                const key = `user_notes_${videoId}`;
+                const data = localStorage.getItem(key);
+                if (data) {
+                    myNotesData = JSON.parse(data);
+                } else {
+                    myNotesData = [];
+                }
+                renderUserNotes();
+            }
+
+            function saveUserNotesToStorage(videoId, notes) {
+                const key = `user_notes_${videoId}`;
+                localStorage.setItem(key, JSON.stringify(notes));
+            }
+
+            // Export functionality
+            const btnExport = document.getElementById("btn-export");
+            const exportMenu = document.getElementById("export-menu");
+            const exportOptions = document.querySelectorAll(".export-option");
+
+            // Toggle dropdown menu
+            btnExport.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (btnExport.disabled) return;
+                exportMenu.classList.toggle("show");
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", () => {
+                exportMenu.classList.remove("show");
+            });
+
+            // Prevent dropdown from closing when clicking inside menu
+            exportMenu.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+
+            // Handle export options
+            exportOptions.forEach(option => {
+                option.addEventListener("click", () => {
+                    const format = option.dataset.format;
+                    if (format === "markdown") exportAsMarkdown();
+                    else if (format === "text") exportAsPlainText();
+                    exportMenu.classList.remove("show");
+                });
+            });
+
+            // Export as Markdown
+            function exportAsMarkdown() {
+                if (!currentVideoId || aiNotesData.length === 0) return;
+
+                const videoTitle = document.getElementById("video-title").innerText || "Video Study Guide";
+                const channel = document.getElementById("video-channel-name").innerText || "YouTube Creator";
+
+                let markdown = `# Study Guide: ${videoTitle}\n`;
+                markdown += `* **Source Video:** https://www.youtube.com/watch?v=${currentVideoId}\n`;
+                markdown += `* **Creator:** ${channel}\n`;
+                markdown += `* **Generated with:** LearnSync AI\n\n`;
+                
+                markdown += `## 🧠 AI-Generated Topics\n\n`;
+                aiNotesData.forEach(note => {
+                    markdown += `### [${formatSeconds(note.time)}] ${note.title}\n`;
+                    markdown += `> ${note.summary}\n\n`;
+                    if (note.bullets && note.bullets.length > 0) {
+                        note.bullets.forEach(b => {
+                            markdown += `- ${b}\n`;
+                        });
+                    }
+                    markdown += `\n`;
+                });
+
+                if (myNotesData.length > 0) {
+                    markdown += `## 📝 My Personal Notes\n\n`;
+                    myNotesData.forEach(note => {
+                        markdown += `* **[${formatSeconds(note.time)}]**: ${note.text}\n`;
+                    });
+                }
+
+                // Download markdown file
+                const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${videoTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_notes.md`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // Export as Plain Text
+            function exportAsPlainText() {
+                if (!currentVideoId || aiNotesData.length === 0) return;
+
+                const videoTitle = document.getElementById("video-title").innerText || "Video Study Guide";
+                const channel = document.getElementById("video-channel-name").innerText || "YouTube Creator";
+                
+                let text = '';
+                text += '='.repeat(50) + '\n';
+                text += `STUDY GUIDE: ${videoTitle}\n`;
+                text += '='.repeat(50) + '\n';
+                text += `Source: https://www.youtube.com/watch?v=${currentVideoId}\n`;
+                text += `Creator: ${channel}\n`;
+                text += `Generated with: LearnSync AI\n\n`;
+                
+                text += '-'.repeat(50) + '\n';
+                text += 'AI-GENERATED TOPICS\n';
+                text += '-'.repeat(50) + '\n\n';
+                
+                aiNotesData.forEach(note => {
+                    text += `[${formatSeconds(note.time)}] ${note.title}\n`;
+                    text += `${note.summary}\n\n`;
+                    if (note.bullets && note.bullets.length > 0) {
+                        text += 'Key Points:\n';
+                        note.bullets.forEach(b => {
+                            text += `  • ${b}\n`;
+                        });
+                        text += '\n';
+                    }
+                });
+                
+                if (myNotesData.length > 0) {
+                    text += '-'.repeat(50) + '\n';
+                    text += 'MY PERSONAL NOTES\n';
+                    text += '-'.repeat(50) + '\n\n';
+                    myNotesData.forEach(note => {
+                        text += `[${formatSeconds(note.time)}] ${note.text}\n\n`;
+                    });
+                }
+                
+                // Download as .txt file
+                const blob = new Blob([text], { type: "text/plain;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${videoTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_notes.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // Helper to escape HTML and prevent XSS injections
+            function escapeHtml(text) {
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+            }
+
+            // Code Playground Functionality
+            const codeEditor = document.getElementById("code-editor");
+            const lineNumbers = document.getElementById("line-numbers");
+            const outputContent = document.getElementById("output-content");
+            const languageSelect = document.getElementById("code-language");
+            const btnRunCode = document.getElementById("btn-run-code");
+            const btnClearCode = document.getElementById("btn-clear-code");
+            const btnLoadExample = document.getElementById("btn-load-example");
+            const btnClearOutput = document.getElementById("btn-clear-output");
+
+            // Code examples for each language
+            const codeExamples = {
+                python: `# Python Example
+def greet(name):
+    """Greet someone by name"""
+    print(f"Hello, {name}!")
+    return f"Welcome, {name}!"
+
+# Call the function
+message = greet("World")
+print(message)
+
+# List comprehension
+numbers = [1, 2, 3, 4, 5]
+squares = [x**2 for x in numbers]
+print(f"Squares: {squares}")`,
+                javascript: `// JavaScript Example
+function greet(name) {
+    // Greet someone by name
+    console.log(\`Hello, \${name}!\`);
+    return \`Welcome, \${name}!\`;
+}
+
+// Call the function
+const message = greet("World");
+console.log(message);
+
+// Array methods
+const numbers = [1, 2, 3, 4, 5];
+const squares = numbers.map(x => x ** 2);
+console.log("Squares:", squares);`,
+                java: `// Java Example
+public class Main {
+    public static void main(String[] args) {
+        // Greet someone
+        String message = greet("World");
+        System.out.println(message);
+        
+        // Array example
+        int[] numbers = {1, 2, 3, 4, 5};
+        System.out.print("Squares: ");
+        for (int num : numbers) {
+            System.out.print(num * num + " ");
+        }
+        System.out.println();
+    }
+    
+    public static String greet(String name) {
+        System.out.println("Hello, " + name + "!");
+        return "Welcome, " + name + "!";
+    }
+}`,
+                cpp: `// C++ Example
+#include <iostream>
+#include <vector>
+using namespace std;
+
+string greet(string name) {
+    cout << "Hello, " << name << "!" << endl;
+    return "Welcome, " + name + "!";
+}
+
+int main() {
+    // Call the function
+    string message = greet("World");
+    cout << message << endl;
+    
+    // Vector example
+    vector<int> numbers = {1, 2, 3, 4, 5};
+    cout << "Squares: ";
+    for (int num : numbers) {
+        cout << num * num << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+                golang: `// Go Example
+package main
+
+import "fmt"
+
+func greet(name string) string {
+    fmt.Printf("Hello, %s!\\n", name)
+    return fmt.Sprintf("Welcome, %s!", name)
+}
+
+func main() {
+    // Call the function
+    message := greet("World")
+    fmt.Println(message)
+    
+    // Slice example
+    numbers := []int{1, 2, 3, 4, 5}
+    fmt.Print("Squares: ")
+    for _, num := range numbers {
+        fmt.Print(num*num, " ")
+    }
+    fmt.Println()
+}`
+            };
+
+            // Update line numbers
+            function updateLineNumbers() {
+                const lines = codeEditor.value.split('\n').length;
+                let lineNumbersHTML = '';
+                for (let i = 1; i <= lines; i++) {
+                    lineNumbersHTML += i + '\n';
+                }
+                lineNumbers.textContent = lineNumbersHTML;
+            }
+
+            // Handle code editor input
+            codeEditor.addEventListener('input', updateLineNumbers);
+
+            // Handle tab key in code editor
+            codeEditor.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 2;
+                    updateLineNumbers();
+                }
+            });
+
+            // Sync scroll between editor and line numbers
+            codeEditor.addEventListener('scroll', function() {
+                lineNumbers.scrollTop = codeEditor.scrollTop;
+            });
+
+            // Run code
+            btnRunCode.addEventListener('click', async function() {
+                const code = codeEditor.value.trim();
+                if (!code) {
+                    outputContent.innerHTML = '<span class="output-error">No code to run.</span>';
+                    return;
+                }
+
+                const language = languageSelect.value;
+                outputContent.innerHTML = '<span class="output-placeholder">Running...</span>';
+                btnRunCode.disabled = true;
+                btnRunCode.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Running...';
+
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/run-code', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ language, code })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.error) {
+                        outputContent.innerHTML = `<span class="output-error">${escapeHtml(result.error)}</span>`;
+                    } else if (result.output) {
+                        outputContent.innerHTML = `<span class="output-success">${escapeHtml(result.output)}</span>`;
+                    } else {
+                        outputContent.innerHTML = '<span class="output-placeholder">No output.</span>';
+                    }
+                } catch (error) {
+                    outputContent.innerHTML = `<span class="output-error">Failed to connect to server: ${escapeHtml(error.message)}</span>`;
+                } finally {
+                    btnRunCode.disabled = false;
+                    btnRunCode.innerHTML = '<i class="fa-solid fa-play"></i> Run Code';
+                }
+            });
+
+            // Clear code
+            btnClearCode.addEventListener('click', function() {
+                codeEditor.value = '';
+                updateLineNumbers();
+                outputContent.innerHTML = '<span class="output-placeholder">Run your code to see output here...</span>';
+            });
+
+            // Load example
+            btnLoadExample.addEventListener('click', function() {
+                const language = languageSelect.value;
+                codeEditor.value = codeExamples[language] || '';
+                updateLineNumbers();
+                outputContent.innerHTML = '<span class="output-placeholder">Example loaded. Click "Run Code" to execute.</span>';
+            });
+
+            // Clear output
+            btnClearOutput.addEventListener('click', function() {
+                outputContent.innerHTML = '<span class="output-placeholder">Run your code to see output here...</span>';
+            });
+
+            // Load example when language changes
+            languageSelect.addEventListener('change', function() {
+                const language = this.value;
+                codeEditor.value = codeExamples[language] || '';
+                updateLineNumbers();
+                outputContent.innerHTML = '<span class="output-placeholder">Example loaded. Click "Run Code" to execute.</span>';
+            });
+
+            // Initialize line numbers
+            updateLineNumbers();
+
+            // Code Playground Modal functionality
+            const codeModal = document.getElementById('code-modal');
+            const btnCodePlayground = document.getElementById('btn-code-playground');
+            const codeModalClose = document.getElementById('code-modal-close');
+
+            // Open modal when clicking Code Playground tab
+            btnCodePlayground.addEventListener('click', function() {
+                codeModal.style.display = 'flex';
+                // Initialize line numbers when modal opens
+                updateLineNumbers();
+            });
+
+            // Close modal
+            codeModalClose.addEventListener('click', function() {
+                codeModal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === codeModal) {
+                    codeModal.style.display = 'none';
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && codeModal.style.display === 'flex') {
+                    codeModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

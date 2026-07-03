@@ -1,0 +1,6 @@
+flask
+flask-cors
+youtube-transcript-api
+google-generativeai
+python-dotenv
+gunicorn
