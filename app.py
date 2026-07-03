@@ -7,6 +7,7 @@ import shutil
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
+from youtube_transcript_api.proxies import WebshareProxyConfig
 import google.generativeai as genai
 from dotenv import load_dotenv
 
@@ -77,9 +78,17 @@ def analyze_video():
             "error": "Gemini API key is missing. Please set GEMINI_API_KEY in the .env file, or input it in the UI settings."
         }), 400
 
-    # 1. Fetch transcript from YouTube
+    # 1. Fetch transcript from YouTube (with proxy fallback for cloud servers)
+    PROXY_URL = os.getenv("PROXY_URL")
+    
     try:
-        api = YouTubeTranscriptApi()
+        if PROXY_URL:
+            proxy_config = WebshareProxyConfig(
+                proxy_url=PROXY_URL
+            )
+            api = YouTubeTranscriptApi(proxy_config=proxy_config)
+        else:
+            api = YouTubeTranscriptApi()
         transcript_obj = api.fetch(video_id)
         transcript_list = transcript_obj.to_raw_data()
     except TranscriptsDisabled:
