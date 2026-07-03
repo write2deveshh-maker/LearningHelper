@@ -1633,7 +1633,7 @@
                     setTimeout(() => updateLoadingStep(2), 2000); // UI visual update
                     setTimeout(() => updateLoadingStep(3), 5000); // UI visual update
 
-                    const response = await fetch("http://127.0.0.1:5000/api/analyze", {
+                    const response = await fetch("/api/analyze", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -2137,7 +2137,7 @@ func main() {
                 btnRunCode.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Running...';
 
                 try {
-                    const response = await fetch('http://127.0.0.1:5000/api/run-code', {
+                    const response = await fetch('/api/run-code', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
